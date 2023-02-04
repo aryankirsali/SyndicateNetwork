@@ -12,6 +12,24 @@ const Message = ({ message }) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
+  const timeDifference = (currentTime, messageTime) => {
+    console.log(messageTime);
+    const timeDiff = currentTime - messageTime;
+    if (timeDiff < 60000) {
+      return "just now";
+    } else if (timeDiff < 3600000) {
+      return Math.floor(timeDiff / 60000) + "m ago";
+    } else if (timeDiff < 86400000) {
+      return Math.floor(timeDiff / 3600000) + "h ago";
+    } else {
+      return new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      }).format(messageTime);
+    }
+  };
+
   return (
     <div
       ref={ref}
@@ -26,7 +44,14 @@ const Message = ({ message }) => {
           }
           alt=""
         />
-        <span>just now</span>
+        <span>
+          {message.date
+            ? timeDifference(
+                Date.now(),
+                message.date.seconds * 1000 + message.date.nanoseconds / 1000000
+              )
+            : ""}
+        </span>
       </div>
       <div className="messageContent">
         <p>{message.text}</p>

@@ -200,6 +200,17 @@ body {
           }
   
           .userChatInfo {
+            .online-status {
+              color: green;
+              margin-left: 10px;
+              font-size: 12px;
+            }
+
+            .offline-status {
+              color: red;
+              margin-left: 10px;
+              font-size: 12px;
+            }
             span {
               font-size: 18px;
               font-weight: 500;
@@ -267,7 +278,7 @@ body {
               p {
                 background-color: white;
                 padding: 10px 20px;
-                border-radius: 0px 10px 10px 10px;
+                border-radius: 0px 20px 20px 20px;
                 max-width: max-content;
               }
   
@@ -282,9 +293,11 @@ body {
               .messageContent {
                 align-items: flex-end;
                 p {
+                  max-width: 300px;
+                  word-wrap: break-word;
                   background-color: #4f619e;
                   color: white;
-                  border-radius: 10px 0px 10px 10px;
+                  border-radius: 20px 0px 20px 20px;
                 }
               }
             }

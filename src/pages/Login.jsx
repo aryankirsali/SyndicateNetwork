@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Login = () => {
   const [err, setErr] = useState(false);
@@ -13,7 +14,10 @@ const Login = () => {
     const password = e.target[1].value;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      await updateDoc(doc(db, "users", res.user.uid), {
+        onlineUser: true,
+      });
       navigate("/")
     } catch (err) {
       setErr(true);
