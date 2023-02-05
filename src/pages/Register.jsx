@@ -3,8 +3,9 @@ import Add from "../img/addAvatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -45,7 +46,18 @@ const Register = () => {
             });
             
             //create empty user chats on firestore
+            const chatId = `${res.user.uid}chatgpt`;
             await setDoc(doc(db, "userChats", res.user.uid), {});
+            //create empty user chats on firestore for chatgpt
+            await setDoc(doc(db, "chats", chatId), { messages: [] });
+            await updateDoc(doc(db, "chats", chatId), {
+              messages: arrayUnion({
+                id: uuid(),
+                text: "Welcome to Syndicate Network! I'm Maverick, your personal assistant, here to help you with anything you need. You can ask me questions, get help with your account, or just say hi!",
+                senderId: "Chatgpt",
+                date: Timestamp.now(),
+              }),
+            });
             navigate("/");
           } catch (err) {
             console.log(err);

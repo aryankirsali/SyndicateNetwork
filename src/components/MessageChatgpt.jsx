@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
-const Message = ({ message }) => {
+const MessageChatgpt = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
@@ -39,7 +39,7 @@ const Message = ({ message }) => {
           src={
             message.senderId === currentUser.uid
               ? currentUser.photoURL
-              : data.user.photoURL
+              : "https://firebasestorage.googleapis.com/v0/b/syndicate-network-363ee.appspot.com/o/openai-avatar.png?alt=media&token=e03472e3-117f-4140-abf9-6929d36f4b60"
           }
           alt=""
         />
@@ -60,4 +60,4 @@ const Message = ({ message }) => {
   );
 };
 
-export default Message;
+export default MessageChatgpt;
