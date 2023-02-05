@@ -53,7 +53,7 @@ const Register = () => {
             await updateDoc(doc(db, "chats", chatId), {
               messages: arrayUnion({
                 id: uuid(),
-                text: "Welcome to Syndicate Network! I'm Maverick, your personal assistant, here to help you with anything you need. You can ask me questions, get help with your account, or just say hi!",
+                text: "Welcome to Syndicate Network! I'm Gus, your personal assistant, here to help you with anything you need. You can ask me questions, get help with your account, or just say hi!",
                 senderId: "Chatgpt",
                 date: Timestamp.now(),
               }),
