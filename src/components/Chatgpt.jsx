@@ -7,7 +7,7 @@ const Chatgpt = () => {
   return (
     <div className="chatgpt">
       <div className="chatInfo">
-        <span>Chat Assistant</span>
+        <span>Virtual Assistant</span>
       </div>
       <MessagesChatgpt />
       <InputChatgpt/>
