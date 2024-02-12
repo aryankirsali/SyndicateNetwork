@@ -33,13 +33,19 @@ const InputChatgpt = () => {
     setInputDisabled(true);
 
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "YOUR_API_KEY",
     });
-    const openai = new OpenAIApi(configuration);
+    const openAI = new OpenAIApi(configuration);
 
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: text,
+    const response = await openAI.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are an intelligent question answering assistant who makes a conversation with the end user like a human"
+        },
+        {role: "user", content: text},
+      ],
       temperature: 0,
       max_tokens: 200,
     });
@@ -57,7 +63,7 @@ const InputChatgpt = () => {
   await updateDoc(doc(db, "chats", chatId), {
       messages: arrayUnion({
         id: uuid(),
-        text: response.data.choices[0].text,
+        text: response.data.choices[0]?.message?.content.trim(),
         senderId: "Chatgpt",
         date: Timestamp.now(),
       }),
