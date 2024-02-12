@@ -33,7 +33,7 @@ const InputChatgpt = () => {
     setInputDisabled(true);
 
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "YOUR_OPENAI_API_KEY",
     });
     const openAI = new OpenAIApi(configuration);
 
