@@ -35,6 +35,7 @@ const InputChatgpt = () => {
     const configuration = new Configuration({
       apiKey: "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",
     });
+    
     const openAI = new OpenAIApi(configuration);
 
     const response = await openAI.createChatCompletion({
